@@ -24,45 +24,30 @@ var db = mongojs(dbname, collection);
 
 
 app.get("/", (req, res) => {
+  
   //res.json({ message: "API Working" });
-
   res.sendFile(__dirname + '/register.html');
-
 });
 
 app.get("/login", (req, res) => {
+  
     //res.json({ message: "API Working" });
-  
     res.sendFile(__dirname + '/login.html');
-  
-  });
+});
 
 app.post('/signup',async (req,res)=>{
 
     //validation
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-
-        return res.status(400).json({
-       
-            errors: errors.array()
-
-        });
+        return res.status(400).json({ errors: errors.array() });
     }
 
     let { username,email,password } = req.body;
-    
-    
-    
-
+   
     try{
 
-        //let cursor;
-
-        
-        
         await db.auth.findOne({ email },async(err,msg)=>{
            
             if(err){
